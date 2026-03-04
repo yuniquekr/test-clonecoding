@@ -21,6 +21,12 @@
 </head>
 <body>
 
+  <!-- 스크롤 프로그레스바 -->
+  <div class='scroll-progress'><div class='scroll-progress-bar' id='scrollProgressBar'></div></div>
+
+  <!-- Back-to-Top 버튼 -->
+  <button class='back-to-top' id='backToTop'>↑</button>
+
   <!-- 헤더 / 네비게이션 -->
   <header id="header">
     <div class="container header-inner">
@@ -30,11 +36,13 @@
       </button>
       <nav id="nav">
         <ul>
-          <li><a href="#about">클리닉 소개</a></li>
-          <li><a href="#procedures">시술 안내</a></li>
-          <li><a href="#before-after">Before &amp; After</a></li>
-          <li><a href="#doctor">의료진</a></li>
-          <li><a href="#location">오시는 길</a></li>
+          <li><a href="#about" class="nav-link">클리닉 소개</a></li>
+          <li><a href="#procedures" class="nav-link">시술 안내</a></li>
+          <li><a href="#before-after" class="nav-link">Before &amp; After</a></li>
+          <li><a href="#doctor" class="nav-link">의료진</a></li>
+          <li><a href="#gallery" class="nav-link">갤러리</a></li>
+          <li><a href="#location" class="nav-link">오시는 길</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
           <li><a href="#contact" class="btn-nav">상담 예약</a></li>
         </ul>
       </nav>
@@ -45,37 +53,42 @@
   <section id="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <p class="hero-sub">당신의 아름다움을 완성하는 곳</p>
+      <p class="hero-sub" id="hero-typewriter"></p>
       <h1>강남 뷰티라인<br>성형외과</h1>
       <p class="hero-slogan">자연스러운 아름다움, 전문의가 함께합니다</p>
       <a href="#contact" class="btn-primary cta-main">무료 상담 예약</a>
     </div>
+    <a href="#about" class="hero-scroll-down" aria-label="아래로 스크롤">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </a>
   </section>
 
   <!-- 소개 섹션 -->
-  <section id="about">
+  <section id="about" class="about-bg">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-animate="fadeInUp">
         <span class="section-tag">About Us</span>
         <h2>클리닉 소개</h2>
       </div>
       <div class="about-grid">
-        <div class="about-text">
+        <div class="about-text" data-animate="fadeInLeft">
           <p>강남 뷰티라인 성형외과는 <strong>강남역 2번 출구</strong> 도보 3분 거리에 위치한 프리미엄 성형외과입니다.</p>
           <p>저희 클리닉은 <strong>15년 이상의 경력</strong>을 보유한 전문의가 직접 상담부터 시술, 사후 관리까지 책임집니다. 환자 한 분 한 분의 개성과 특성을 존중하는 <strong>1:1 맞춤 상담</strong>을 통해 최적의 결과를 제공합니다.</p>
           <p>과도한 변화보다 자연스러운 아름다움을 추구하며, 안전과 만족을 최우선으로 생각합니다.</p>
         </div>
-        <div class="about-stats">
+        <div class="about-stats" data-animate="fadeInRight">
           <div class="stat-item">
-            <span class="stat-num">15+</span>
+            <span class="stat-number" data-target="15"></span><span class="stat-suffix">+</span>
             <span class="stat-label">년 경력</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">5,000+</span>
+            <span class="stat-number" data-target="5000"></span><span class="stat-suffix">건</span>
             <span class="stat-label">누적 시술</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">98%</span>
+            <span class="stat-number" data-target="98"></span><span class="stat-suffix">%</span>
             <span class="stat-label">만족도</span>
           </div>
         </div>
@@ -86,85 +99,296 @@
   <!-- 시술 안내 섹션 -->
   <section id="procedures" class="bg-light">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-animate="fadeInUp">
         <span class="section-tag">Procedures</span>
         <h2>시술 안내</h2>
         <p class="section-desc">자연스럽고 아름다운 결과를 위한 전문 시술</p>
       </div>
-      <div class="procedures-grid">
-        <div class="procedure-card">
-          <div class="procedure-icon">👁️</div>
-          <h3>눈성형</h3>
-          <p>쌍꺼풀 수술, 눈매 교정, 앞·뒤트임 등 눈의 형태와 크기를 자연스럽게 개선합니다.</p>
-          <a href="#contact" class="btn-outline">상담 문의</a>
+      <!-- 탭 네비게이션 -->
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" data-tab="eyes" role="tab" aria-selected="true">눈성형</button>
+        <button class="tab-btn" data-tab="nose" role="tab" aria-selected="false">코성형</button>
+        <button class="tab-btn" data-tab="contour" role="tab" aria-selected="false">윤곽성형</button>
+        <button class="tab-btn" data-tab="skin" role="tab" aria-selected="false">피부관리</button>
+      </nav>
+
+      <!-- 탭 패널 -->
+      <div class="tab-panels">
+
+        <!-- 눈성형 -->
+        <div class="tab-panel active" id="tab-eyes">
+          <div class="flip-grid">
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/eye-surgery.webp" alt="자연유착 쌍꺼풀" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">👁️</div>
+                  <h3>자연유착 쌍꺼풀</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>자연유착 쌍꺼풀</h3>
+                  <p>흉터 없이 자연스러운 쌍꺼풀 라인을 만드는 최소침습 수술법. 붓기가 적고 회복이 빠릅니다.</p>
+                  <div class="card-price">💰 80만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/eye-surgery.webp" alt="눈매교정" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">✨</div>
+                  <h3>눈매교정</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>눈매교정</h3>
+                  <p>처진 눈꺼풀을 교정하여 또렷하고 생기 있는 눈매를 완성합니다. 졸려 보이는 인상 개선.</p>
+                  <div class="card-price">💰 150만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/eye-surgery.webp" alt="앞·뒤트임" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">💫</div>
+                  <h3>앞·뒤트임</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>앞·뒤트임</h3>
+                  <p>눈의 길이를 늘려 더 크고 시원한 인상으로 변화시켜 드립니다. 자연스러운 눈 확장 효과.</p>
+                  <div class="card-price">💰 100만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="procedure-card">
-          <div class="procedure-icon">✨</div>
-          <h3>코성형</h3>
-          <p>콧대 성형, 코끝 성형, 매부리코 교정 등 얼굴 균형에 맞는 자연스러운 코를 완성합니다.</p>
-          <a href="#contact" class="btn-outline">상담 문의</a>
+
+        <!-- 코성형 -->
+        <div class="tab-panel" id="tab-nose">
+          <div class="flip-grid">
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/nose-surgery.webp" alt="콧대 성형" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">✨</div>
+                  <h3>콧대 성형</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>콧대 성형</h3>
+                  <p>실리콘 보형물로 낮은 콧대를 높여 얼굴 균형을 맞춰드립니다. 자연스러운 실루엣 완성.</p>
+                  <div class="card-price">💰 200만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/nose-surgery.webp" alt="코끝 성형" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">💎</div>
+                  <h3>코끝 성형</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>코끝 성형</h3>
+                  <p>자가 연골을 이용한 코끝 교정으로 오뚝하고 세련된 코를 완성합니다. 이물감 최소화.</p>
+                  <div class="card-price">💰 180만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/nose-surgery.webp" alt="매부리코 교정" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">🌟</div>
+                  <h3>매부리코 교정</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>매부리코 교정</h3>
+                  <p>튀어나온 콧등을 다듬어 부드럽고 우아한 콧날 라인을 만들어 드립니다.</p>
+                  <div class="card-price">💰 250만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="procedure-card">
-          <div class="procedure-icon">💎</div>
-          <h3>윤곽성형</h3>
-          <p>광대, 턱, 사각턱 교정으로 얼굴 윤곽을 다듬어 세련된 이미지를 만들어 드립니다.</p>
-          <a href="#contact" class="btn-outline">상담 문의</a>
+
+        <!-- 윤곽성형 -->
+        <div class="tab-panel" id="tab-contour">
+          <div class="flip-grid">
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/contouring.webp" alt="사각턱 교정" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">💎</div>
+                  <h3>사각턱 교정</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>사각턱 교정</h3>
+                  <p>교근·뼈 교정으로 각진 턱선을 부드럽게 만들어 갸름한 얼굴형을 완성합니다.</p>
+                  <div class="card-price">💰 300만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/contouring.webp" alt="광대 축소" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">🌙</div>
+                  <h3>광대 축소</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>광대 축소</h3>
+                  <p>돌출된 광대뼈를 안쪽으로 이동시켜 갸름하고 세련된 얼굴 라인을 만들어 드립니다.</p>
+                  <div class="card-price">💰 350만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/contouring.webp" alt="턱끝 성형" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">✨</div>
+                  <h3>턱끝 성형</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>턱끝 성형</h3>
+                  <p>무턱·짧은 턱을 교정하여 균형 잡힌 측면 얼굴 라인을 완성합니다. 보형물·절골 선택 가능.</p>
+                  <div class="card-price">💰 200만원~</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="procedure-card">
-          <div class="procedure-icon">🌿</div>
-          <h3>피부관리</h3>
-          <p>레이저 토닝, 보톡스, 필러, 피부재생 등 맞춤형 피부 관리로 생기 있는 피부를 되찾으세요.</p>
-          <a href="#contact" class="btn-outline">상담 문의</a>
+
+        <!-- 피부관리 -->
+        <div class="tab-panel" id="tab-skin">
+          <div class="flip-grid">
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/skincare.webp" alt="레이저 토닝" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">🌿</div>
+                  <h3>레이저 토닝</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>레이저 토닝</h3>
+                  <p>기미·잡티·색소침착을 개선하고 피부 톤을 균일하게 밝혀줍니다. 다운타임 최소화.</p>
+                  <div class="card-price">💰 10만원~/회</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/skincare.webp" alt="보톡스·필러" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">💧</div>
+                  <h3>보톡스·필러</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>보톡스·필러</h3>
+                  <p>주름 제거 및 볼륨 보충으로 동안 피부를 되찾아 드립니다. 즉각적인 효과, 간편한 시술.</p>
+                  <div class="card-price">💰 15만원~/부위</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-flip" data-animate="scaleIn">
+              <div class="card-inner">
+                <div class="card-front">
+                  <img src="public/images/skincare.webp" alt="피부재생 치료" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="card-img-fallback">🌸</div>
+                  <h3>피부재생 치료</h3>
+                  <span class="card-hint">마우스를 올려 자세히 보기</span>
+                </div>
+                <div class="card-back">
+                  <h3>피부재생 치료</h3>
+                  <p>PRP·MTS·스킨부스터를 활용한 피부 탄력 강화 및 재생 프로그램. 맞춤 집중 케어.</p>
+                  <div class="card-price">💰 20만원~/회</div>
+                  <a href="#contact" class="btn-primary">상담 예약</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+      </div><!-- /.tab-panels -->
     </div>
   </section>
 
   <!-- Before & After 섹션 -->
   <section id="before-after">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-animate="fadeInUp">
         <span class="section-tag">Results</span>
         <h2>Before &amp; After</h2>
         <p class="section-desc">실제 시술 결과를 확인하세요</p>
       </div>
-      <div class="ba-grid">
-        <div class="ba-case">
-          <div class="ba-pair">
-            <div class="ba-img before"><span class="ba-label">Before</span></div>
-            <div class="ba-img after"><span class="ba-label">After</span></div>
+      <div class="carousel" id="ba-carousel">
+        <div class="carousel-track" id="ba-track">
+          <div class="slide">
+            <div class="comparison-slider" data-idx="0">
+              <img class="before" src="public/images/before-after-1.webp" alt="눈성형 Before" onerror="this.style.background='linear-gradient(160deg,#b0bec5,#90a4ae)';this.style.display='block';this.removeAttribute('src')" />
+              <img class="after" src="public/images/before-after-1-after.webp" alt="눈성형 After" onerror="this.style.background='linear-gradient(160deg,#C9A96E,#a87d45)';this.style.display='block';this.removeAttribute('src')" />
+              <div class="slider-handle"><div class="slider-arrows">‹ ›</div></div>
+            </div>
+            <p class="ba-desc">눈성형 — 자연유착 쌍꺼풀</p>
           </div>
-          <p class="ba-desc">눈성형 — 자연유착 쌍꺼풀</p>
-        </div>
-        <div class="ba-case">
-          <div class="ba-pair">
-            <div class="ba-img before"><span class="ba-label">Before</span></div>
-            <div class="ba-img after"><span class="ba-label">After</span></div>
+          <div class="slide">
+            <div class="comparison-slider" data-idx="1">
+              <img class="before" src="public/images/before-after-2.webp" alt="코성형 Before" onerror="this.style.background='linear-gradient(160deg,#b0bec5,#90a4ae)';this.style.display='block';this.removeAttribute('src')" />
+              <img class="after" src="public/images/before-after-2-after.webp" alt="코성형 After" onerror="this.style.background='linear-gradient(160deg,#C9A96E,#a87d45)';this.style.display='block';this.removeAttribute('src')" />
+              <div class="slider-handle"><div class="slider-arrows">‹ ›</div></div>
+            </div>
+            <p class="ba-desc">코성형 — 콧대 + 코끝 복합</p>
           </div>
-          <p class="ba-desc">코성형 — 콧대 + 코끝 복합</p>
-        </div>
-        <div class="ba-case">
-          <div class="ba-pair">
-            <div class="ba-img before"><span class="ba-label">Before</span></div>
-            <div class="ba-img after"><span class="ba-label">After</span></div>
+          <div class="slide">
+            <div class="comparison-slider" data-idx="2">
+              <img class="before" src="public/images/before-after-3.webp" alt="윤곽성형 Before" onerror="this.style.background='linear-gradient(160deg,#b0bec5,#90a4ae)';this.style.display='block';this.removeAttribute('src')" />
+              <img class="after" src="public/images/before-after-3-after.webp" alt="윤곽성형 After" onerror="this.style.background='linear-gradient(160deg,#C9A96E,#a87d45)';this.style.display='block';this.removeAttribute('src')" />
+              <div class="slider-handle"><div class="slider-arrows">‹ ›</div></div>
+            </div>
+            <p class="ba-desc">윤곽성형 — 사각턱 + 광대</p>
           </div>
-          <p class="ba-desc">윤곽성형 — 사각턱 + 광대</p>
         </div>
+        <button class="carousel-prev" id="ba-prev" aria-label="이전">&#8249;</button>
+        <button class="carousel-next" id="ba-next" aria-label="다음">&#8250;</button>
+        <div class="carousel-dots" id="ba-dots"></div>
       </div>
-      <p class="ba-notice">※ 위 이미지는 플레이스홀더입니다. 실제 사례 사진은 내원 상담 시 확인하실 수 있습니다.</p>
+      <p class="ba-notice">※ 슬라이더를 좌우로 드래그하여 Before/After를 비교하세요. 실제 사례 사진은 내원 상담 시 확인하실 수 있습니다.</p>
     </div>
   </section>
 
   <!-- 의료진 소개 섹션 -->
   <section id="doctor" class="bg-light">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-animate="fadeInUp">
         <span class="section-tag">Doctor</span>
         <h2>의료진 소개</h2>
       </div>
-      <div class="doctor-card">
+      <div class="doctor-card" data-animate="fadeInLeft">
         <div class="doctor-avatar">
-          <div class="avatar-placeholder">👨‍⚕️</div>
+          <img src="public/images/doctor-profile.webp" alt="김준호 대표원장 프로필 사진" loading="lazy" class="doctor-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="avatar-placeholder" style="display:none">👨‍⚕️</div>
         </div>
         <div class="doctor-info">
           <h3>김준호 대표원장</h3>
@@ -182,37 +406,138 @@
     </div>
   </section>
 
+  <!-- 고객 후기 섹션 -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header" data-animate="fadeInUp">
+        <span class="section-tag">Reviews</span>
+        <h2>고객 후기</h2>
+        <p class="section-desc">실제 고객님들의 생생한 경험</p>
+      </div>
+      <div class="testimonial-carousel">
+        <div class="testimonial-track" id="testimonial-track">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">자연스럽고 예쁘게 만들어 주셔서 너무 만족합니다. 원장님이 직접 꼼꼼하게 상담해 주시고 수술 후 관리도 정말 친절하게 해주셔서 감동받았어요. 주변에 적극 추천하고 있습니다.</p>
+            <div class="testimonial-profile">
+              <img src="public/images/testimonial-1.webp" alt="이*영 고객" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="testimonial-avatar-fallback">😊</div>
+              <div class="testimonial-meta">
+                <strong>이*영</strong>
+                <span>자연유착 쌍꺼풀</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">코성형을 오래 고민했는데 원장님 상담 후 바로 결정했어요. 회복도 빠르고 결과도 너무 자연스럽습니다. 무서운 느낌 없이 편안하게 진행해 주셔서 정말 감사했어요.</p>
+            <div class="testimonial-profile">
+              <img src="public/images/testimonial-2.webp" alt="박*현 고객" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="testimonial-avatar-fallback">😊</div>
+              <div class="testimonial-meta">
+                <strong>박*현</strong>
+                <span>콧대 + 코끝 복합 성형</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">레이저 토닝 3회 받았는데 피부가 확실히 밝아지고 잡티가 많이 줄었어요. 시술 전후 관리 안내도 꼼꼼하게 해주시고 부작용 없이 깔끔하게 마무리됐습니다. 다음에도 꼭 다시 올게요!</p>
+            <div class="testimonial-profile">
+              <img src="public/images/testimonial-3.webp" alt="김*수 고객" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="testimonial-avatar-fallback">😊</div>
+              <div class="testimonial-meta">
+                <strong>김*수</strong>
+                <span>레이저 토닝</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-dots" id="testimonial-dots"></div>
+    </div>
+  </section>
+
+  <!-- 갤러리 섹션 -->
+  <section id="gallery" class="bg-light">
+    <div class="container">
+      <div class="section-header" data-animate="fadeInUp">
+        <span class="section-tag">Gallery</span>
+        <h2>클리닉 둘러보기</h2>
+        <p class="section-desc">편안하고 쾌적한 강남 뷰티라인 성형외과를 소개합니다</p>
+      </div>
+      <div class="masonry-grid">
+        <div class="masonry-item masonry-tall" data-caption="클리닉 내부 전경">
+          <img src="public/images/clinic-interior.webp" alt="클리닉 내부 전경" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">클리닉 내부 전경</span></div>
+        </div>
+        <div class="masonry-item" data-caption="눈성형 시술실">
+          <img src="public/images/eye-surgery.webp" alt="눈성형 시술실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">눈성형 시술실</span></div>
+        </div>
+        <div class="masonry-item" data-caption="코성형 시술실">
+          <img src="public/images/nose-surgery.webp" alt="코성형 시술실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">코성형 시술실</span></div>
+        </div>
+        <div class="masonry-item masonry-tall" data-caption="원장님 진료실">
+          <img src="public/images/doctor-profile.webp" alt="원장님 진료실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">원장님 진료실</span></div>
+        </div>
+        <div class="masonry-item" data-caption="윤곽 시술실">
+          <img src="public/images/contouring.webp" alt="윤곽 시술실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">윤곽 시술실</span></div>
+        </div>
+        <div class="masonry-item" data-caption="피부 관리실">
+          <img src="public/images/skincare.webp" alt="피부 관리실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">피부 관리실</span></div>
+        </div>
+        <div class="masonry-item masonry-tall" data-caption="고객 상담실">
+          <img src="public/images/before-after-1.webp" alt="고객 상담실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">고객 상담실</span></div>
+        </div>
+        <div class="masonry-item" data-caption="로비 &amp; 대기실">
+          <img src="public/images/before-after-2.webp" alt="로비 대기실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">로비 &amp; 대기실</span></div>
+        </div>
+        <div class="masonry-item" data-caption="회복실">
+          <img src="public/images/before-after-3.webp" alt="회복실" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#e8edf2,#dce4ee)';this.removeAttribute('src')" />
+          <div class="masonry-overlay"><span class="masonry-caption">회복실</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 오시는 길 섹션 -->
   <section id="location">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-animate="fadeInUp">
         <span class="section-tag">Location</span>
         <h2>오시는 길</h2>
       </div>
       <div class="location-grid">
         <div class="location-info">
-          <div class="location-item">
+          <div class="location-item" data-animate="fadeInLeft">
             <span class="location-icon">📍</span>
             <div>
               <strong>주소</strong>
               <p>서울특별시 강남구 강남대로 396<br>강남 뷰티라인빌딩 7층</p>
             </div>
           </div>
-          <div class="location-item">
+          <div class="location-item" data-animate="fadeInRight">
             <span class="location-icon">🚇</span>
             <div>
               <strong>지하철</strong>
               <p>2호선·신분당선 강남역 2번 출구<br>도보 3분</p>
             </div>
           </div>
-          <div class="location-item">
+          <div class="location-item" data-animate="fadeInLeft">
             <span class="location-icon">🚗</span>
             <div>
               <strong>주차</strong>
               <p>건물 내 주차 가능 (2시간 무료)</p>
             </div>
           </div>
-          <div class="location-item">
+          <div class="location-item" data-animate="fadeInRight">
             <span class="location-icon">📞</span>
             <div>
               <strong>전화</strong>
@@ -221,8 +546,10 @@
           </div>
         </div>
         <div class="map-wrap">
-          <!-- Google Maps embed placeholder — 실제 배포 시 API 키로 교체 -->
-          <div class="map-placeholder-box">
+          <img src="public/images/clinic-interior.webp" alt="강남 뷰티라인 성형외과 내부 전경" loading="lazy" class="clinic-interior-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <!-- Google Maps / 카카오맵 iframe 임베드 공간 — 실제 배포 시 API 키로 교체 -->
+          <!-- <iframe src="https://map.kakao.com/..." width="100%" height="360" frameborder="0" allowfullscreen></iframe> -->
+          <div class="map-placeholder-box" style="display:none">
             <span>🗺️</span>
             <p>Google Maps</p>
             <small>강남역 (37.4980, 127.0276)</small>
@@ -232,16 +559,52 @@
     </div>
   </section>
 
+  <!-- FAQ 섹션 -->
+  <section id="faq" class="bg-light">
+    <div class="container">
+      <div class="section-header" data-animate="fadeInUp">
+        <span class="section-tag">FAQ</span>
+        <h2>자주 묻는 질문</h2>
+      </div>
+      <div class="accordion">
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">수술 후 회복기간은?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">시술 종류에 따라 다르지만, 일반적으로 눈성형은 7~10일, 코성형은 2~3주, 윤곽성형은 4~6주 정도의 회복기간이 필요합니다. 개인 차가 있으므로 전문의와 충분히 상담 후 결정하시기 바랍니다.</div>
+        </div>
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">상담은 무료인가요?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">네, 초진 상담은 무료로 진행됩니다. 전문의가 직접 1:1로 상담하며, 시술 방법과 예상 결과에 대해 자세히 안내해 드립니다. 부담 없이 방문하셔도 됩니다.</div>
+        </div>
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">수술 부작용은?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">모든 수술에는 부기, 멍, 감각 이상 등 일시적인 부작용이 있을 수 있습니다. 저희 클리닉은 철저한 사전 검사와 최신 기법으로 부작용을 최소화하며, 수술 후 체계적인 사후관리로 빠른 회복을 돕습니다.</div>
+        </div>
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">마취 방법은?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">시술 범위와 환자 상태에 따라 국소마취 또는 수면마취를 적용합니다. 간단한 눈성형은 국소마취로 진행하며, 코성형이나 윤곽성형 등 복합 시술의 경우 수면마취를 권장합니다. 마취과 전문의가 상주하여 안전하게 진행합니다.</div>
+        </div>
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">재수술 가능한가요?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">네, 가능합니다. 재수술은 초수술보다 난이도가 높으므로 충분한 경과 기간(최소 6개월~1년) 후 정밀 진단을 거쳐 진행합니다. 타 병원 수술 후 재수술도 상담 가능합니다.</div>
+        </div>
+        <div class="accordion-item" data-animate="fadeInUp">
+          <button class="accordion-header">비용 결제 방법은?<span class="accordion-icon">+</span></button>
+          <div class="accordion-body">현금, 신용카드, 체크카드 모두 가능합니다. 또한 무이자 할부(최대 12개월) 서비스를 제공하며, 의료비 소득공제 영수증 발급도 지원합니다. 상담 후 정확한 비용을 안내해 드립니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 상담 예약 섹션 -->
   <section id="contact" class="bg-dark">
     <div class="container">
-      <div class="section-header light">
+      <div class="section-header light" data-animate="fadeInUp">
         <span class="section-tag gold">Contact</span>
         <h2>무료 상담 예약</h2>
         <p class="section-desc">전문의가 직접 1:1로 상담해 드립니다</p>
       </div>
       <div class="contact-grid">
-        <div class="contact-info">
+        <div class="contact-info" data-animate="fadeInLeft">
           <h3>운영 시간</h3>
           <ul class="hours-list">
             <li><span>평일</span><span>09:00 – 18:00</span></li>
@@ -250,7 +613,7 @@
           </ul>
           <p class="contact-tel">📞 02-1234-5678</p>
         </div>
-        <form class="contact-form" id="contact-form">
+        <form class="contact-form" id="contact-form" data-animate="fadeInRight">
           <div class="form-group">
             <label for="name">이름</label>
             <input type="text" id="name" name="name" placeholder="홍길동" required />
@@ -297,6 +660,52 @@
       <p>&copy; 2026 강남 뷰티라인 성형외과. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ===== 라이트박스 모달 ===== -->
+  <div class="modal-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대">
+    <div class="modal-content lightbox-content">
+      <img id="lightbox-img" src="" alt="" />
+      <button class="modal-close" aria-label="닫기">×</button>
+      <p class="modal-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- ===== 상담 예약 모달 ===== -->
+  <div class="modal-overlay" id="booking-modal" role="dialog" aria-modal="true" aria-label="상담 예약">
+    <div class="modal-content booking-content">
+      <button class="modal-close" aria-label="닫기">×</button>
+      <div class="booking-header">
+        <h3>무료 상담 예약</h3>
+        <p>전문의가 직접 1:1로 상담해 드립니다</p>
+      </div>
+      <form class="contact-form modal-form" id="modal-contact-form">
+        <div class="form-group">
+          <label for="modal-name">이름</label>
+          <input type="text" id="modal-name" name="name" placeholder="홍길동" required />
+        </div>
+        <div class="form-group">
+          <label for="modal-phone">연락처</label>
+          <input type="tel" id="modal-phone" name="phone" placeholder="010-0000-0000" required />
+        </div>
+        <div class="form-group">
+          <label for="modal-procedure">관심 시술</label>
+          <select id="modal-procedure" name="procedure">
+            <option value="">선택하세요</option>
+            <option value="eyes">눈성형</option>
+            <option value="nose">코성형</option>
+            <option value="contour">윤곽성형</option>
+            <option value="skin">피부관리</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="modal-message">문의 내용</label>
+          <textarea id="modal-message" name="message" rows="3" placeholder="상담받고 싶은 내용을 입력해 주세요."></textarea>
+        </div>
+        <button type="submit" class="btn-primary full-width">상담 예약 신청</button>
+      </form>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
