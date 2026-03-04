@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-03-04T15:13:43.402Z",
+  "totalImages": 16,
+  "images": [
+    {
+      "filename": "hero-banner.webp",
+      "width": 1920,
+      "height": 1080,
+      "path": "public/images/hero-banner.webp",
+      "generatedAt": "2026-03-04T15:13:51.211Z"
+    },
+    {
+      "filename": "eye-surgery.webp",
+      "width": 800,
+      "height": 600,
+      "path": "public/images/eye-surgery.webp",
+      "generatedAt": "2026-03-04T15:14:06.343Z"
+    },
+    {
+      "filename": "nose-surgery.webp",
+      "width": 800,
+      "height": 600,
+      "path": "public/images/nose-surgery.webp",
+      "generatedAt": "2026-03-04T15:14:21.005Z"
+    },
+    {
+      "filename": "contouring.webp",
+      "width": 800,
+      "height": 600,
+      "path": "public/images/contouring.webp",
+      "generatedAt": "2026-03-04T15:14:34.144Z"
+    },
+    {
+      "filename": "skincare.webp",
+      "width": 800,
+      "height": 600,
+      "path": "public/images/skincare.webp",
+      "generatedAt": "2026-03-04T15:14:49.423Z"
+    },
+    {
+      "filename": "before-after-1.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-1.webp",
+      "generatedAt": "2026-03-04T15:15:03.357Z"
+    },
+    {
+      "filename": "before-after-1-after.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-1-after.webp",
+      "generatedAt": "2026-03-04T15:15:16.813Z"
+    },
+    {
+      "filename": "before-after-2.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-2.webp",
+      "generatedAt": "2026-03-04T15:15:31.668Z"
+    },
+    {
+      "filename": "before-after-2-after.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-2-after.webp",
+      "generatedAt": "2026-03-04T15:15:45.116Z"
+    },
+    {
+      "filename": "before-after-3.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-3.webp",
+      "generatedAt": "2026-03-04T15:15:59.144Z"
+    },
+    {
+      "filename": "before-after-3-after.webp",
+      "width": 600,
+      "height": 400,
+      "path": "public/images/before-after-3-after.webp",
+      "generatedAt": "2026-03-04T15:16:12.395Z"
+    },
+    {
+      "filename": "doctor-profile.webp",
+      "width": 400,
+      "height": 400,
+      "path": "public/images/doctor-profile.webp",
+      "generatedAt": "2026-03-04T15:16:25.881Z"
+    },
+    {
+      "filename": "clinic-interior.webp",
+      "width": 1200,
+      "height": 600,
+      "path": "public/images/clinic-interior.webp",
+      "generatedAt": "2026-03-04T15:16:41.664Z"
+    },
+    {
+      "filename": "testimonial-1.webp",
+      "width": 200,
+      "height": 200,
+      "path": "public/images/testimonial-1.webp",
+      "generatedAt": "2026-03-04T15:16:56.440Z"
+    },
+    {
+      "filename": "testimonial-2.webp",
+      "width": 200,
+      "height": 200,
+      "path": "public/images/testimonial-2.webp",
+      "generatedAt": "2026-03-04T15:17:12.320Z"
+    },
+    {
+      "filename": "testimonial-3.webp",
+      "width": 200,
+      "height": 200,
+      "path": "public/images/testimonial-3.webp",
+      "generatedAt": "2026-03-04T15:17:24.987Z"
+    }
+  ],
+  "errors": []
+}

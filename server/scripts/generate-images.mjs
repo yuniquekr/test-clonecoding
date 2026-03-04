@@ -45,7 +45,7 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-const API_URL = 'https://api.nanobanana.com/v1/generate';
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
 const OUTPUT_DIR = path.join(ROOT, 'public', 'images');
 
 // 생성할 이미지 목록
@@ -82,19 +82,37 @@ const IMAGE_TASKS = [
   },
   {
     filename: 'before-after-1.webp',
-    prompt: 'Asian woman portrait, natural beauty, soft neutral background, before and after beauty transformation concept, photorealistic',
+    prompt: 'Asian woman portrait, natural beauty, soft neutral background, before beauty transformation, subtle imperfections, photorealistic',
+    width: 600,
+    height: 400,
+  },
+  {
+    filename: 'before-after-1-after.webp',
+    prompt: 'Asian woman portrait, enhanced natural beauty, glowing skin, refined features, soft neutral background, after beauty transformation, photorealistic',
     width: 600,
     height: 400,
   },
   {
     filename: 'before-after-2.webp',
-    prompt: 'Korean woman portrait, fresh natural look, soft lighting, clean neutral background, beauty clinic transformation, photorealistic',
+    prompt: 'Korean woman portrait, fresh natural look, soft lighting, clean neutral background, before beauty clinic treatment, photorealistic',
+    width: 600,
+    height: 400,
+  },
+  {
+    filename: 'before-after-2-after.webp',
+    prompt: 'Korean woman portrait, radiant clear skin, refined look, soft lighting, clean neutral background, after beauty clinic treatment, photorealistic',
     width: 600,
     height: 400,
   },
   {
     filename: 'before-after-3.webp',
-    prompt: 'Young Asian woman smiling naturally, bright clear skin, soft studio background, beauty clinic result concept, photorealistic',
+    prompt: 'Young Asian woman, natural look, soft studio background, before beauty clinic result, photorealistic',
+    width: 600,
+    height: 400,
+  },
+  {
+    filename: 'before-after-3-after.webp',
+    prompt: 'Young Asian woman smiling naturally, bright clear skin, enhanced beauty, soft studio background, after beauty clinic result, photorealistic',
     width: 600,
     height: 400,
   },
@@ -134,46 +152,43 @@ async function generateImage(task) {
   const { filename, prompt, width, height } = task;
   console.log(`[generate] ${filename} (${width}x${height})`);
 
+  // Gemini API: generateContent with image generation
   const response = await fetch(API_URL, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      prompt,
-      width,
-      height,
-      style: 'photographic',
+      contents: [{
+        parts: [{ text: `Generate a photorealistic image: ${prompt}` }],
+      }],
+      generationConfig: {
+        responseModalities: ['IMAGE', 'TEXT'],
+      },
     }),
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`API error ${response.status}: ${errorText}`);
+    throw new Error(`API error ${response.status}: ${errorText.slice(0, 300)}`);
   }
 
   const data = await response.json();
 
-  // API 응답에서 이미지 URL 또는 base64 추출
+  // Extract image from Gemini response
   let imageBuffer;
-  if (data.image_url) {
-    // URL 형태로 반환된 경우
-    const imgResp = await fetch(data.image_url);
-    if (!imgResp.ok) throw new Error(`Image download failed: ${imgResp.status}`);
-    const arrayBuffer = await imgResp.arrayBuffer();
-    imageBuffer = Buffer.from(arrayBuffer);
-  } else if (data.image_base64 || data.base64 || data.data) {
-    // Base64 형태로 반환된 경우
-    const b64 = data.image_base64 || data.base64 || data.data;
-    imageBuffer = Buffer.from(b64, 'base64');
-  } else if (data.url) {
-    const imgResp = await fetch(data.url);
-    if (!imgResp.ok) throw new Error(`Image download failed: ${imgResp.status}`);
-    const arrayBuffer = await imgResp.arrayBuffer();
-    imageBuffer = Buffer.from(arrayBuffer);
-  } else {
-    throw new Error(`Unexpected API response format: ${JSON.stringify(data).slice(0, 200)}`);
+  const candidates = data.candidates || [];
+  for (const candidate of candidates) {
+    const parts = candidate.content?.parts || [];
+    for (const part of parts) {
+      if (part.inlineData?.data) {
+        imageBuffer = Buffer.from(part.inlineData.data, 'base64');
+        break;
+      }
+    }
+    if (imageBuffer) break;
+  }
+
+  if (!imageBuffer) {
+    throw new Error(`No image in response: ${JSON.stringify(data).slice(0, 300)}`);
   }
 
   const outputPath = path.join(OUTPUT_DIR, filename);
@@ -214,8 +229,8 @@ async function main() {
       manifest.errors.push({ filename: task.filename, error: err.message });
     }
 
-    // API 레이트 리밋 방지를 위한 대기
-    await new Promise(r => setTimeout(r, 500));
+    // API 레이트 리밋 방지를 위한 대기 (이미지 생성은 무거우므로 5초 간격)
+    await new Promise(r => setTimeout(r, 5000));
   }
 
   // images.json 매니페스트 저장
